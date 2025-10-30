@@ -80,6 +80,8 @@ export type Offer = {
   ideal_use_cases: string[];
 };
 
+
+
 export const dataCompletenessScore = (lead: Lead): number => {
   const requiredFields = [
     lead.name,

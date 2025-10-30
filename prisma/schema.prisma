@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -44,7 +44,14 @@ model Score{
   data_completeness_score Int @default(0)
   rule_score Int 
   ai_score Int
+  intent Intent @default(LOW)
   reasoning String
 
   @@unique([leadId, offerId])
+}
+
+enum Intent{
+  LOW
+  MEDIUM
+  HIGH
 }

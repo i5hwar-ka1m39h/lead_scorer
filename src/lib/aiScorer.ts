@@ -1,15 +1,22 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { Lead, Offer } from "./scorer.js";
+import dotenv from 'dotenv'
+dotenv.config();
 
 const apiKey = process.env.GEMINI_API_KEY;
 
 const ai = new GoogleGenAI({
   apiKey: apiKey!,
 });
-
+const intentScoreMap : Record<string, number> = {
+    HIGH: 50,
+    MEDIUM: 30,
+    LOW: 10
+}
 type aiResp = {
     intent:string;
     reasoning:string;
+    score: number
 }
 export const getAiScore = async (offer: Offer, lead: Lead) => {
   let offerSTR = JSON.stringify(offer);
@@ -40,7 +47,12 @@ export const getAiScore = async (offer: Offer, lead: Lead) => {
 
   const rawData = response.text;
   const data = rawData ? JSON.parse(rawData) : null;
-  return data as aiResp;
+ 
+ 
+  let score = intentScoreMap[data.intent] ?? 10;
+
+  return {intent:data.intent, reasoning:data.reasoning, score:score} as aiResp
+  
 };
 
 // const offer = {
