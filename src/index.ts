@@ -34,4 +34,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/v1", allRoutes)
 
 
-export default app;
+app.listen(port, ()=>{
+    console.log(`listening on port ${port}`);
+    
+})
