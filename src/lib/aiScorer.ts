@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { Lead, Offer } from "./scorer.js";
 
-const apiKey = "AIzaSyBUqYmAREzKrYiyExery0DHdFF3LFMFR6w";
+const apiKey = process.env.GEMINI_API_KEY;
 
 const ai = new GoogleGenAI({
   apiKey: apiKey!,
